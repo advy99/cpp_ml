@@ -20,7 +20,7 @@ ENCODERS_OBJECTS = $(OBJ)/label_encoder.o
 CLASSIFICATION_OBJECTS = $(OBJ)/knn_classifier.o
 REGRESSION_OBJECTS = $(OBJ)/knn_regressor.o
 MODELS_OBJECTS = $(CLASSIFICATION_OBJECTS) $(REGRESSION_OBJECTS)
-METRICS_OBJECTS = $(OBJ)/classification_metrics.o
+METRICS_OBJECTS = $(OBJ)/classification_metrics.o $(OBJ)/regression_metrics.o
 MATH_OBJECTS = $(OBJ)/distances.o
 DATASETS_OBJECTS =
 
@@ -50,6 +50,10 @@ $(OBJ)/knn_regressor.o: $(SRC)/regressors/knn_regressor.cpp $(INC)/regressors/kn
 
 $(OBJ)/classification_metrics.o: $(SRC)/metrics/classification_metrics.cpp $(INC)/metrics/classification_metrics.hpp
 	$(CXX) -c $(CXXFLAGS) $< -I$(INC) -o $@
+
+$(OBJ)/regression_metrics.o: $(SRC)/metrics/regression_metrics.cpp $(INC)/metrics/regression_metrics.hpp
+	$(CXX) -c $(CXXFLAGS) $< -I$(INC) -o $@
+
 
 $(OBJ)/distances.o: $(SRC)/math/distances.cpp $(INC)/math/distances.hpp
 	$(CXX) -c $(CXXFLAGS) $< -I$(INC) -o $@
