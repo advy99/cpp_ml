@@ -1,0 +1,11 @@
+# project binaries
+obj/
+bin/
+lib/
+
+# clagd cache
+.cache/
+
+
+# clagd json for LSP
+compile_commands.json
