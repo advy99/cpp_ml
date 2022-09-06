@@ -45,5 +45,5 @@ So far is implemented:
   * [x] train_test_split
   * [x] CSV reader
   * [ ] OneHotEncoder
-  * [ ] Z-Score Scaler
+  * [x] Z-Score Scaler
   * [ ] MinMaxScaler
