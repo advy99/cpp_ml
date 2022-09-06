@@ -16,7 +16,7 @@ TARGET_OBJECT = $(OBJ)/main.o
 
 LIBRARY = $(LIB)/libcpp_ml.a
 
-ENCODERS_OBJECTS = $(OBJ)/label_encoder.o
+TRANSFORMERS_OBJECTS = $(OBJ)/label_encoder.o $(OBJ)/standard_scaler.o
 CLASSIFICATION_OBJECTS = $(OBJ)/knn_classifier.o
 REGRESSION_OBJECTS = $(OBJ)/knn_regressor.o
 MODELS_OBJECTS = $(CLASSIFICATION_OBJECTS) $(REGRESSION_OBJECTS)
@@ -31,7 +31,7 @@ $(TARGET): $(TARGET_OBJECT) $(LIBRARY)
 	$(CXX) $(TARGET_OBJECT) -lcpp_ml -L$(LIB) -o $(TARGET)
 
 
-$(LIBRARY): $(ENCODERS_OBJECTS) $(METRICS_OBJECTS) $(MODELS_OBJECTS) $(MATH_OBJECTS) $(DATASETS_OBJECTS)
+$(LIBRARY): $(TRANSFORMERS_OBJECTS) $(METRICS_OBJECTS) $(MODELS_OBJECTS) $(MATH_OBJECTS) $(DATASETS_OBJECTS)
 	ar rvs $(LIBRARY) $^
 
 $(TARGET_OBJECT): $(SRC)/main.cpp
@@ -41,6 +41,8 @@ $(TARGET_OBJECT): $(SRC)/main.cpp
 $(OBJ)/label_encoder.o: $(SRC)/transformers/label_encoder.cpp $(INC)/transformers/label_encoder.hpp $(INC)/transformers.hpp
 	$(CXX) -c $(CXXFLAGS) $< -I$(INC) -o $@
 
+$(OBJ)/standard_scaler.o: $(SRC)/transformers/standard_scaler.cpp $(INC)/transformers/standard_scaler.hpp $(INC)/transformers.hpp
+	$(CXX) -c $(CXXFLAGS) $< -I$(INC) -o $@
 
 $(OBJ)/knn_classifier.o: $(SRC)/classifiers/knn_classifier.cpp $(INC)/classifiers/knn_classifier.hpp $(INC)/classifiers.hpp
 	$(CXX) -c $(CXXFLAGS) $< -I$(INC) -o $@

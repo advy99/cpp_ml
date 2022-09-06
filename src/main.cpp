@@ -3,6 +3,7 @@
 // used library parts
 #include "classifiers/knn_classifier.hpp"
 #include "transformers/label_encoder.hpp"
+#include "transformers/standard_scaler.hpp"
 #include "math/distances.hpp"
 #include "datasets/reading.hpp"
 #include "datasets/split.hpp"
@@ -31,6 +32,7 @@ int main(int argc, char ** argv) {
 	classifiers::knn_classifier my_knn = classifiers::knn_classifier(3, distances::euclidean_distance);
 
 	transformers::label_encoder my_encoder = transformers::label_encoder();
+	transformers::standard_scaler my_std_scaler = transformers::standard_scaler();
 
 	// read the dataset
 	std::pair dataset = datasets::reading::read_x_y_from_csv<double, std::string>(data_file, true, '#', ',');
@@ -38,8 +40,12 @@ int main(int argc, char ** argv) {
 	// fit the encoder and transform the data
 	my_encoder.fit(dataset.second);
 
-	auto features = dataset.first;
+	auto original_features = dataset.first;
 	auto targets = my_encoder.transform(dataset.second);
+
+	my_std_scaler.fit(original_features);
+	auto features = my_std_scaler.transform(original_features);
+
 
 	// split in train/test
 	std::tuple dataset_splits = datasets::split::train_test_split(features, targets, test_percentage);
