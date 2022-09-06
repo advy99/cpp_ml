@@ -19,6 +19,20 @@ class target_transformer {
 
 };
 
+
+class data_transformer {
+	private:
+
+	public:
+
+		virtual auto transform(const std::vector<std::vector<double>> & data) const -> std::vector<std::vector<double>> = 0;
+
+		virtual auto fit(const std::vector<std::vector<double>> & data) -> void = 0;
+
+
+};
+
+
 } // end models::transformers namespace
 
 
