@@ -2,15 +2,18 @@
 
 // used library parts
 #include "classifiers/knn_classifier.hpp"
+#include "regressors/linear_regression.hpp"
 #include "transformers/label_encoder.hpp"
 #include "transformers/standard_scaler.hpp"
 #include "math/distances.hpp"
 #include "datasets/reading.hpp"
 #include "datasets/split.hpp"
 #include "metrics/classification_metrics.hpp"
+#include "metrics/regression_metrics.hpp"
 
 // local namespaces for simplicity
 namespace classifiers = cpp_ml::models::classifiers;
+namespace regressors = cpp_ml::models::regressors;
 namespace transformers = cpp_ml::models::transformers;
 namespace distances = cpp_ml::math::distances;
 namespace datasets = cpp_ml::datasets;
@@ -72,6 +75,36 @@ int main(int argc, char ** argv) {
 
 	std::cout << "Train accuracy: " << train_accuracy << "\n"
 				 << "Test accuracy: " << test_accuracy << "\n";
+
+
+	std::cout << "\n" << "As a regression problem using linear regression:" << "\n";
+
+	regressors::linear_regression my_linear_reg;
+
+
+	std::vector<double> y_train_double;
+	std::vector<double> y_test_double;
+
+	for (const auto & value : y_train) {
+		y_train_double.emplace_back(static_cast<double>(value));
+	}
+
+	for (const auto & value : y_test) {
+		y_test_double.emplace_back(static_cast<double>(value));
+	}
+
+	my_linear_reg.fit(x_train, y_train_double);
+
+	auto test_predictions_reg = my_linear_reg.predict(x_test);
+	double test_accuracy_reg = metrics::regression_metrics::mean_squared_error(y_test_double, test_predictions_reg);
+
+	auto train_predictions_reg = my_linear_reg.predict(x_train);
+	double train_accuracy_reg = metrics::regression_metrics::mean_squared_error(y_train_double, train_predictions_reg);
+
+	std::cout << "Train MSE: " << train_accuracy_reg << "\n"
+				 << "Test MSE: " << test_accuracy_reg << "\n";
+
+
 
 	return 0;
 }
