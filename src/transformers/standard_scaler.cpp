@@ -56,6 +56,12 @@ auto standard_scaler :: fit (const std::vector<std::vector<double>> & data) -> v
 	for (double & column_std_dev : standard_deviation_) {
 		column_std_dev = column_std_dev * (1.0 / static_cast<double>(data.size()) );
 		column_std_dev = std::sqrt(column_std_dev);
+
+		// TODO: Change to math::utils compare doubles function
+		if (column_std_dev == 0.0) {
+			column_std_dev = 1.0;
+		}
+
 	}
 
 
