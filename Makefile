@@ -129,7 +129,7 @@ $(TEST_TARGET): $(TEST_TARGET_OBJECT) $(LIBRARY)
 $(TARGET_OBJECT): $(SRC)/main.cpp
 	$(CXX) -c $(CXXFLAGS) $< -o $@
 
-$(TEST_TARGET_OBJECT): $(SRC)/tests.cpp
+$(TEST_TARGET_OBJECT): $(SRC)/tests.cpp tests/**/*.hpp
 	$(CXX) -c $(CXXFLAGS) $(gtest) $< -o $@
 
 
