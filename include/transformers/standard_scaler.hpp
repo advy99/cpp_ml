@@ -19,6 +19,9 @@ class standard_scaler : public data_transformer {
 
 		virtual auto fit(const std::vector<std::vector<double>> & data) -> void override;
 
+		auto get_means() const -> std::vector<double>;
+
+		auto get_standard_deviations() const -> std::vector<double>;
 
 };
 

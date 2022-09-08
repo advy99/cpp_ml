@@ -54,11 +54,20 @@ auto standard_scaler :: fit (const std::vector<std::vector<double>> & data) -> v
 
 
 	for (double & column_std_dev : standard_deviation_) {
-		column_std_dev = column_std_dev * (1.0 / (static_cast<double>(data.size()) - 1 ));
+		column_std_dev = column_std_dev * (1.0 / static_cast<double>(data.size()) );
 		column_std_dev = std::sqrt(column_std_dev);
 	}
 
 
+}
+
+
+auto standard_scaler :: get_means() const -> std::vector<double> {
+	return mean_;
+}
+
+auto standard_scaler :: get_standard_deviations() const -> std::vector<double> {
+	return standard_deviation_;
 }
 
 
