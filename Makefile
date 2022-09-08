@@ -46,7 +46,7 @@ gtestflags = $(gtest_include) $(gtestlibs)
 
 O_LEVEL := -O$(strip $(OPTIMIZACION))
 
-CXXFLAGS = -std=c++20 -Wall -Wextra -Wpedantic -Wfloat-equal -I$(INC) -isystem /usr/include/opencv4 $(O_LEVEL) $(F_GPROF)
+CXXFLAGS = -std=c++20 -Wall -Wextra -Wpedantic -Wfloat-equal -I$(INC) -I. -isystem /usr/include/opencv4 $(O_LEVEL) $(F_GPROF)
 OPENCV_LIB = -lopencv_core
 
 
