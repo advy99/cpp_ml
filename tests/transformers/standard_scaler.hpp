@@ -33,6 +33,23 @@ TEST (standard_scaler_test, check_means_and_var) {
 
 }
 
+TEST (standard_scaler_test, unique_value_to_zero) {
+
+	std::vector<std::vector<double>> data;
+
+	data.push_back({11.0, 2.0});
+
+	cpp_ml::models::transformers::standard_scaler data_scaler;
+
+	data_scaler.fit(data);
+	auto data_scaled = data_scaler.transform(data);
+
+
+	EXPECT_DOUBLE_EQ(data_scaled[0][0], 0.0);
+	EXPECT_DOUBLE_EQ(data_scaled[0][1], 0.0);
+
+}
+
 
 
 
