@@ -7,13 +7,73 @@ SRC := $(HOME)/src
 INC := $(HOME)/include
 LIB := $(HOME)/lib
 
-CXXFLAGS = -std=c++20 -Wall -Wextra -Wpedantic -Wfloat-equal -I$(INC) -isystem /usr/include/opencv4 -g -Og
+###
+#
+# Variables for optimization and GPROF
+#
+###
+
+OPTIMIZACION ?= 2
+GPROF ?= 0
+
+ifeq ($(DEBUG), 1)
+# target para debug (cambiamos flags y el mensaje)
+OPTIMIZACION = g -g
+endif
+
+ifeq ($(GPROF), 1)
+F_GPROF = -pg
+else
+F_GPROF =
+endif
+
+
+###
+#
+# Variables for GTEST suite
+#
+###
+
+gtest_include = -isystem /usr/include/gtest/
+gtestlibs  = /usr/lib/libgtest.so
+gtestflags = $(gtest_include) $(gtestlibs)
+
+###
+#
+# Compiler flags and includes
+#
+###
+
+O_LEVEL := -O$(strip $(OPTIMIZACION))
+
+CXXFLAGS = -std=c++20 -Wall -Wextra -Wpedantic -Wfloat-equal -I$(INC) -isystem /usr/include/opencv4 $(O_LEVEL) $(F_GPROF)
 OPENCV_LIB = -lopencv_core
 
+
+###
+#
+# Main target
+#
+###
 
 TARGET = $(BIN)/main
 TARGET_OBJECT = $(OBJ)/main.o
 
+
+###
+#
+# GTEST target
+#
+###
+
+TEST_TARGET = $(BIN)/tests
+TEST_TARGET_OBJECT = $(OBJ)/tests.o
+
+###
+#
+# Library targets
+#
+###
 
 LIBRARY = $(LIB)/libcpp_ml.a
 
@@ -25,8 +85,21 @@ METRICS_OBJECTS = $(OBJ)/classification_metrics.o $(OBJ)/regression_metrics.o
 MATH_OBJECTS = $(OBJ)/distances.o
 DATASETS_OBJECTS =
 
+###
+#
+# Main recipes
+#
+###
+
 all: make_dirs $(TARGET)
 
+tests: make_dirs $(TEST_TARGET)
+
+###
+#
+# Main target compilation
+#
+###
 
 $(TARGET): $(TARGET_OBJECT) $(LIBRARY)
 	$(CXX) $(TARGET_OBJECT) -lcpp_ml $(OPENCV_LIB) -L$(LIB) -o $(TARGET)
@@ -35,8 +108,29 @@ $(TARGET): $(TARGET_OBJECT) $(LIBRARY)
 $(LIBRARY): $(TRANSFORMERS_OBJECTS) $(METRICS_OBJECTS) $(MODELS_OBJECTS) $(MATH_OBJECTS) $(DATASETS_OBJECTS)
 	ar rvs $(LIBRARY) $^
 
+
+###
+#
+# Test target compilation
+#
+###
+
+
+$(TEST_TARGET): $(TEST_TARGET_OBJECT) $(LIBRARY)
+	$(CXX) $(TEST_TARGET_OBJECT) -lcpp_ml $(OPENCV_LIB) $(gtestflags) -L$(LIB) -o $(TEST_TARGET)
+
+
+###
+#
+# Objects compilation
+#
+###
+
 $(TARGET_OBJECT): $(SRC)/main.cpp
 	$(CXX) -c $(CXXFLAGS) $< -o $@
+
+$(TEST_TARGET_OBJECT): $(SRC)/tests.cpp
+	$(CXX) -c $(CXXFLAGS) $(gtest) $< -o $@
 
 
 $(OBJ)/label_encoder.o: $(SRC)/transformers/label_encoder.cpp $(INC)/transformers/label_encoder.hpp $(INC)/transformers.hpp
@@ -66,6 +160,12 @@ $(OBJ)/regression_metrics.o: $(SRC)/metrics/regression_metrics.cpp $(INC)/metric
 $(OBJ)/distances.o: $(SRC)/math/distances.cpp $(INC)/math/distances.hpp
 	$(CXX) -c $(CXXFLAGS) $< -o $@
 
+
+###
+#
+# Auxiliar recipes
+#
+###
 
 folder_exists_message = "This folder alredy exists"
 
