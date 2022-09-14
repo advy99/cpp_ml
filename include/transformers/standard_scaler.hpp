@@ -8,8 +8,8 @@ namespace cpp_ml::models::transformers {
 class standard_scaler : public data_transformer {
 	private:
 		// a mean and standard_deviation per data column
-		std::vector<double> mean_;
-		std::vector<double> standard_deviation_;
+		std::vector<double> means_;
+		std::vector<double> standards_deviations_;
 
 	public:
 
