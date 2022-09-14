@@ -1,4 +1,5 @@
 #include "transformers/standard_scaler.hpp"
+#include "math/utils.hpp"
 
 #include <cmath>
 
@@ -57,8 +58,8 @@ auto standard_scaler :: fit (const std::vector<std::vector<double>> & data) -> v
 		column_std_dev = column_std_dev * (1.0 / static_cast<double>(data.size()) );
 		column_std_dev = std::sqrt(column_std_dev);
 
-		// TODO: Change to math::utils compare doubles function
-		if (column_std_dev == 0.0) {
+		// if the data does not variate, avoid divisions by 0.0
+		if ( cpp_ml::math::utils::are_equal(column_std_dev, 0.0) ) {
 			column_std_dev = 1.0;
 		}
 
