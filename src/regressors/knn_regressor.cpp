@@ -6,10 +6,11 @@
 
 namespace cpp_ml::models::regressors {
 
-knn_regressor :: knn_regressor(int32_t k, const std::function<double(const std::vector<double> &, const std::vector<double> &)> & distance_f) {
-	k_ = k;
-	distance_function_ = distance_f;
-}
+knn_regressor :: knn_regressor(size_t k, const std::function<double(const std::vector<double> &, const std::vector<double> &)> & distance_f)
+:
+	distance_function_ { distance_f },
+	k_ { k }
+{ }
 
 auto knn_regressor :: fit(const std::vector<std::vector<double> > & data, const std::vector<double> & targets) -> void {
 	data_ = data;

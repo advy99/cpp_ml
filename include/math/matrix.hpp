@@ -49,10 +49,12 @@ auto dot (const std::vector<std::vector<T>> & matrix_a,
 template <typename T>
 requires arithmetic<T>
 auto invert (const std::vector<std::vector<T>> & matrix) -> std::vector<std::vector<T>> {
-	cv::Mat matrix_cv(matrix.size(), matrix.at(0).size(), CV_64FC1);
+	cv::Mat matrix_cv(static_cast<int>(matrix.size()), static_cast<int>(matrix.at(0).size()), CV_64FC1);
 	for(int i = 0; i < matrix_cv.rows; ++i) {
 		for(int j = 0; j < matrix_cv.cols ; ++j) {
-			matrix_cv.at<double>(i, j) = matrix.at(i).at(j);
+			const auto & i_size_t = static_cast<size_t>(i);
+			const auto & j_size_t = static_cast<size_t>(j);
+			matrix_cv.at<double>(i, j) = matrix.at(i_size_t).at(j_size_t);
 		}
 	}
 
@@ -62,7 +64,9 @@ auto invert (const std::vector<std::vector<T>> & matrix) -> std::vector<std::vec
 
 	for(int i = 0; i < result_cv.rows; ++i) {
 		for(int j = 0; j < result_cv.cols ; ++j) {
-			result[i][j] = result_cv.at<double>(i, j);
+			const auto & i_size_t = static_cast<size_t>(i);
+			const auto & j_size_t = static_cast<size_t>(j);
+			result[i_size_t][j_size_t] = result_cv.at<double>(i, j);
 		}
 	}
 

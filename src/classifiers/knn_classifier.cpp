@@ -6,10 +6,11 @@
 
 namespace cpp_ml::models::classifiers {
 
-knn_classifier :: knn_classifier(int32_t k, const std::function<double(const std::vector<double> &, const std::vector<double> &)> & distance_f) {
-	k_ = k;
-	distance_function_ = distance_f;
-}
+knn_classifier :: knn_classifier(size_t k, const std::function<double(const std::vector<double> &, const std::vector<double> &)> & distance_f)
+:
+	distance_function_ { distance_f },
+	k_ { k }
+{ }
 
 auto knn_classifier :: fit(const std::vector<std::vector<double> > & data, const std::vector<int32_t> & targets) -> void {
 	data_ = data;
