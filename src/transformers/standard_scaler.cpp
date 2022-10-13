@@ -17,7 +17,11 @@ auto standard_scaler :: transform (const std::vector<std::vector<double>> & data
 
 	for (auto & row : result) {
 		for (std::size_t i = 0; i < row.size(); ++i) {
-			row[i] = (row[i] - means_[i]) / standards_deviations_[i];
+			double deviation = standards_deviations_[i];
+			if ( cpp_ml::math::utils::are_equal(deviation, 0.0) ) {
+				deviation = 1.0;
+			}
+			row[i] = (row[i] - means_[i]) / deviation;
 		}
 	}
 
@@ -57,12 +61,6 @@ auto standard_scaler :: fit (const std::vector<std::vector<double>> & data) -> v
 	for (double & column_std_dev : standards_deviations_) {
 		column_std_dev = column_std_dev * (1.0 / static_cast<double>(data.size()) );
 		column_std_dev = std::sqrt(column_std_dev);
-
-		// if the data does not variate, avoid divisions by 0.0
-		if ( cpp_ml::math::utils::are_equal(column_std_dev, 0.0) ) {
-			column_std_dev = 1.0;
-		}
-
 	}
 
 
