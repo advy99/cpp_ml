@@ -10,6 +10,7 @@ class regressor {
 	private:
 
 	public:
+		virtual ~regressor () { }
 
 		virtual auto predict(const std::vector<double> & instance) const -> double = 0;
 

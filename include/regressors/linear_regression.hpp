@@ -8,7 +8,7 @@ namespace cpp_ml::models::regressors {
 
 class linear_regression : public regressor {
 	private:
-		std::vector<double> weights_;
+		std::vector<double> weights_ {};
 
 	public:
 

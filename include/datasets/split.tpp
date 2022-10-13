@@ -30,7 +30,7 @@ auto train_test_split (
 
 	std::size_t i = 0;
 
-	while (i < data.size() * test_size) {
+	while (i < static_cast<size_t>(static_cast<double>(data.size()) * test_size)) {
 		x_test.push_back(data[index[i]]);
 		y_test.push_back(targets[index[i]]);
 		++i;

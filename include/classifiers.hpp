@@ -10,6 +10,7 @@ class classifier {
 	private:
 
 	public:
+		virtual ~classifier() { }
 
 		virtual auto predict(const std::vector<double> & instance) const -> int32_t = 0;
 

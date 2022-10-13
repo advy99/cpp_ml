@@ -46,7 +46,35 @@ gtestflags = $(gtest_include) $(gtestlibs)
 
 O_LEVEL := -O$(strip $(OPTIMIZACION))
 
-CXXFLAGS = -std=c++20 -Wall -Wextra -Wpedantic -Wfloat-equal -I$(INC) -I. -isystem /usr/include/opencv4 $(O_LEVEL) $(F_GPROF)
+WFLAGS := \
+	-Wall \
+	-Wcast-align \
+	-Wconversion \
+	-Wdisabled-optimization \
+	-Wdouble-promotion \
+	-Wduplicated-branches \
+	-Wduplicated-cond \
+	-Weffc++ \
+	-Wextra \
+	-Wfloat-equal \
+	-Wformat=2 \
+	-Winline \
+	-Wlogical-op \
+	-Wmisleading-indentation \
+	-Wnoexcept \
+	-Wnon-virtual-dtor \
+	-Wnull-dereference \
+	-Wold-style-cast \
+	-Woverloaded-virtual \
+	-Wpedantic \
+	-Wshadow \
+	-Wsign-conversion \
+	-Wsign-promo \
+	-Wunused \
+	-Wuseless-cast \
+	-Wzero-as-null-pointer-constant
+
+CXXFLAGS = -std=c++20 $(WFLAGS) -I$(INC) -I. -isystem /usr/include/opencv4 $(O_LEVEL) $(F_GPROF)
 OPENCV_LIB = -lopencv_core
 
 

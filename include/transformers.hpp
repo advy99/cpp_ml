@@ -11,6 +11,7 @@ class target_transformer {
 	private:
 
 	public:
+		virtual ~target_transformer() { }
 
 		virtual auto transform(const std::vector<std::string> & instance) const -> std::vector<int32_t> = 0;
 
@@ -24,6 +25,7 @@ class data_transformer {
 	private:
 
 	public:
+		virtual ~data_transformer() { }
 
 		virtual auto transform(const std::vector<std::vector<double>> & data) const -> std::vector<std::vector<double>> = 0;
 

@@ -34,7 +34,7 @@ auto manhattan_distance(const std::vector<double> & point_a, const std::vector<d
 
 auto compute_k_nearest_neighbors(const std::vector<double> & instance,
 											const std::vector<std::vector<double>> & data,
-											const int32_t k,
+											const size_t k,
 											std::function<double(const std::vector<double> &, const std::vector<double> &)> distance_function
 ) -> std::vector<std::size_t> {
 
