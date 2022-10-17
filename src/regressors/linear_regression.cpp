@@ -31,12 +31,15 @@ auto linear_regression :: predict(const std::vector<std::vector<double> > & new_
 
 auto linear_regression :: fit (const std::vector<std::vector<double>> & data, const std::vector<double> & targets) -> void {
 
-	auto data_with_dummie = data;
+	std::vector<std::vector<double>> data_with_dummie;
 
-	for (auto & row : data_with_dummie) {
-		row.insert(row.begin(), 1.0);
+	for (auto & row : data) {
+		std::vector<double> new_row {1.0};
+		new_row.insert(new_row.end(), row.begin(), row.end());
+		data_with_dummie.push_back(new_row);
 	}
 
+	
 	auto x_transposed = math::matrix::transpose(data_with_dummie);
 
 
