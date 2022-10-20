@@ -27,7 +27,7 @@ So far is implemented:
 
 - Regression:
   * [x] KNNRegressor
-  * [ ] LinearRegressor
+  * [x] LinearRegressor
   * [ ] SVMRegressor
 
 - Metrics:
