@@ -3,6 +3,7 @@
 // used library parts
 #include "classifiers/knn_classifier.hpp"
 #include "regressors/linear_regression.hpp"
+#include "regressors/polynomial_regression.hpp"
 #include "transformers/label_encoder.hpp"
 #include "transformers/standard_scaler.hpp"
 #include "math/distances.hpp"
@@ -104,7 +105,24 @@ int main(int argc, char ** argv) {
 	std::cout << "Train MSE: " << train_accuracy_reg << "\n"
 				 << "Test MSE: " << test_accuracy_reg << "\n";
 
+	for (std::size_t degree = 1; degree <= 3; ++degree) {
 
+		std::cout << "\nNow with Polynomial regression of degree = " << degree << " \n";
+
+		regressors::polynomial_regression my_poly_regressor(degree);
+
+		my_poly_regressor.fit(x_train, y_train_double);
+
+		auto test_predictions_poly_reg = my_poly_regressor.predict(x_test);
+		double test_accuracy_poly_reg = metrics::regression_metrics::mean_squared_error(y_test_double, test_predictions_poly_reg);
+
+		auto train_predictions_poly_reg = my_poly_regressor.predict(x_train);
+		double train_accuracy_poly_reg = metrics::regression_metrics::mean_squared_error(y_train_double, train_predictions_poly_reg);
+
+		std::cout << "Train MSE: " << train_accuracy_poly_reg << "\n"
+					 << "Test MSE: " << test_accuracy_poly_reg << "\n";
+
+	}
 
 	return 0;
 }
