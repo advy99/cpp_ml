@@ -107,7 +107,7 @@ LIBRARY = $(LIB)/libcpp_ml.a
 
 TRANSFORMERS_OBJECTS = $(OBJ)/label_encoder.o $(OBJ)/standard_scaler.o
 CLASSIFICATION_OBJECTS = $(OBJ)/knn_classifier.o
-REGRESSION_OBJECTS = $(OBJ)/knn_regressor.o $(OBJ)/linear_regression.o
+REGRESSION_OBJECTS = $(OBJ)/knn_regressor.o $(OBJ)/linear_regression.o $(OBJ)/polynomial_regression.o
 MODELS_OBJECTS = $(CLASSIFICATION_OBJECTS) $(REGRESSION_OBJECTS)
 METRICS_OBJECTS = $(OBJ)/classification_metrics.o $(OBJ)/regression_metrics.o
 MATH_OBJECTS = $(OBJ)/distances.o
@@ -177,6 +177,8 @@ $(OBJ)/knn_regressor.o: $(SRC)/regressors/knn_regressor.cpp $(INC)/regressors/kn
 $(OBJ)/linear_regression.o: $(SRC)/regressors/linear_regression.cpp $(INC)/regressors/linear_regression.hpp $(INC)/regressors.hpp
 	$(CXX) -c $(CXXFLAGS) $< -o $@
 
+$(OBJ)/polynomial_regression.o: $(SRC)/regressors/polynomial_regression.cpp $(INC)/regressors/polynomial_regression.hpp $(INC)/regressors.hpp
+	$(CXX) -c $(CXXFLAGS) $< -o $@
 
 $(OBJ)/classification_metrics.o: $(SRC)/metrics/classification_metrics.cpp $(INC)/metrics/classification_metrics.hpp
 	$(CXX) -c $(CXXFLAGS) $< -o $@
