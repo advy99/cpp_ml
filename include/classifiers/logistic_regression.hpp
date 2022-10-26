@@ -11,7 +11,7 @@ class logistic_regression : public classifier {
 		std::vector<double> weights_ {};
 		double learning_rate_;
 		int32_t max_iters_;
-		const uint64_t random_seed_;
+		uint64_t random_seed_;
 
 
 		auto compute_logistic_function(const std::vector<double> & instance) const -> double;
