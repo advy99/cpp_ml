@@ -12,6 +12,8 @@ knn_classifier :: knn_classifier(size_t k, const std::function<double(const std:
 	k_ { k }
 { }
 
+knn_classifier :: ~knn_classifier() {}
+
 auto knn_classifier :: fit(const std::vector<std::vector<double> > & data, const std::vector<int32_t> & targets) -> void {
 	data_ = data;
 	targets_ = targets;

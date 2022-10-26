@@ -12,6 +12,8 @@ knn_regressor :: knn_regressor(size_t k, const std::function<double(const std::v
 	k_ { k }
 { }
 
+knn_regressor :: ~knn_regressor() {}
+
 auto knn_regressor :: fit(const std::vector<std::vector<double> > & data, const std::vector<double> & targets) -> void {
 	data_ = data;
 	targets_ = targets;

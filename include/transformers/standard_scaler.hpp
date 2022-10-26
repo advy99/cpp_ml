@@ -14,7 +14,7 @@ class standard_scaler : public data_transformer {
 	public:
 
 		standard_scaler();
-		virtual ~standard_scaler() { }
+		virtual ~standard_scaler();
 
 		virtual auto transform(const std::vector<std::vector<double>> & data) const -> std::vector<std::vector<double>> override;
 

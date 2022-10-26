@@ -16,6 +16,7 @@ class knn_regressor : public regressor {
 	public:
 
 		knn_regressor(size_t k, const std::function<double(const std::vector<double> &, const std::vector<double> &)> & distance_f);
+		virtual ~knn_regressor();
 
 		virtual auto predict(const std::vector<double> & instance) const -> double override;
 		virtual auto predict(const std::vector<std::vector<double> > & new_data) const -> std::vector<double> override;

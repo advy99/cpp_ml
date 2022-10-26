@@ -8,6 +8,7 @@ logistic_regression :: logistic_regression (const double learning_rate, const in
 	:learning_rate_ (learning_rate), max_iters_ (max_iters), random_seed_ (seed)
 {}
 
+logistic_regression :: ~logistic_regression() {}
 
 auto logistic_regression :: predict(const std::vector<double> & instance) const -> int32_t {
 	// TODO: Modify logistic regression to multiclass problems, not only binary problems ( One VS All ? )

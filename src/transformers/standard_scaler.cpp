@@ -9,6 +9,8 @@ standard_scaler :: standard_scaler ()
 	: means_ {0.0}, standards_deviations_ {0.0}
 {}
 
+standard_scaler :: ~standard_scaler() {}
+
 auto standard_scaler :: transform (const std::vector<std::vector<double>> & data) const -> std::vector<std::vector<double>> {
 
 	// we could make a copy in the method argument, but to hold consistency

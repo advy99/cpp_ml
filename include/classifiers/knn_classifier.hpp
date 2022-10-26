@@ -16,7 +16,7 @@ class knn_classifier : public classifier {
 	public:
 
 		knn_classifier(size_t k, const std::function<double(const std::vector<double> &, const std::vector<double> &)> & distance_f);
-		virtual ~knn_classifier() {}
+		virtual ~knn_classifier();
 
 		virtual auto predict(const std::vector<double> & instance) const -> int32_t override;
 		virtual auto predict(const std::vector<std::vector<double> > & new_data) const -> std::vector<int32_t> override;

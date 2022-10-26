@@ -17,7 +17,7 @@ class label_encoder : public target_transformer {
 	public:
 
 		label_encoder();
-		virtual ~label_encoder() { }
+		virtual ~label_encoder();
 
 		virtual auto transform(const std::vector<std::string> & instance) const -> std::vector<int32_t> override;
 

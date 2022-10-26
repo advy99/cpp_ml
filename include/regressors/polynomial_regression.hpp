@@ -18,6 +18,8 @@ class polynomial_regression : public regressor {
 
 	public:
 
+		virtual ~polynomial_regression();
+
 		polynomial_regression();
 		polynomial_regression(const std::size_t degree);
 

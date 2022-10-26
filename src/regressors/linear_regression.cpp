@@ -3,6 +3,7 @@
 
 namespace cpp_ml::models::regressors {
 
+linear_regression :: ~linear_regression() {}
 
 auto linear_regression :: predict(const std::vector<double> & instance) const -> double {
 
@@ -39,7 +40,7 @@ auto linear_regression :: fit (const std::vector<std::vector<double>> & data, co
 		data_with_dummie.push_back(new_row);
 	}
 
-	
+
 	auto x_transposed = math::matrix::transpose(data_with_dummie);
 
 
