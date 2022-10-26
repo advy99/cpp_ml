@@ -3,6 +3,7 @@
 // used library parts
 #include "classifiers/knn_classifier.hpp"
 #include "classifiers/logistic_regression.hpp"
+#include "classifiers/multiclass/one_versus_all_classifier.hpp"
 #include "regressors/linear_regression.hpp"
 #include "regressors/knn_regressor.hpp"
 #include "regressors/polynomial_regression.hpp"
@@ -72,6 +73,28 @@ void test_logistic_regression(const std::vector<std::vector<double>> & x_train, 
 
 }
 
+
+void test_one_vs_all_classifier (const std::vector<std::vector<double>> & x_train, const std::vector<int32_t> & y_train,
+				  							const std::vector<std::vector<double>> & x_test, const std::vector<int32_t> & y_test) {
+	std::cout << "\nNow with logistic regression in OvA:\n";
+	// create a knn with k = 3 and using the euclidean distance
+	classifiers::logistic_regression my_log_reg;
+	classifiers::one_versus_all_classifier<classifiers::logistic_regression> my_ova(my_log_reg);
+
+	// fit the knn and predict the test dataset
+	my_ova.fit(x_train, y_train);
+
+	auto test_predictions = my_ova.predict(x_test);
+	double test_accuracy = metrics::classification_metrics::accuracy_score(y_test, test_predictions);
+
+	auto train_predictions = my_ova.predict(x_train);
+	double train_accuracy = metrics::classification_metrics::accuracy_score(y_train, train_predictions);
+
+	std::cout << "\tTrain accuracy: " << train_accuracy << "\n"
+				 << "\tTest accuracy: " << test_accuracy << "\n";
+
+
+}
 
 void test_knn_regressor(const std::vector<std::vector<double>> & x_train, const std::vector<double> & y_train,
 				  				const std::vector<std::vector<double>> & x_test, const std::vector<double> & y_test) {
@@ -161,6 +184,7 @@ int main(int argc, char ** argv) {
 				 << "Percentage of test data: " << test_percentage << "\n";
 
 	test_knn_classifier(x_train, y_train, x_test, y_test);
+	test_one_vs_all_classifier(x_train, y_train, x_test, y_test);
 
 
 	// convert to binary problem to test logistic regression
