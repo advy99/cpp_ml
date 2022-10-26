@@ -19,7 +19,9 @@ class knn_classifier : public classifier {
 		virtual ~knn_classifier();
 
 		virtual auto predict(const std::vector<double> & instance) const -> int32_t override;
+		virtual auto predict_probabilities(const std::vector<double> & instance) const -> std::vector<double> override;
 		virtual auto predict(const std::vector<std::vector<double> > & new_data) const -> std::vector<int32_t> override;
+		virtual auto predict_probabilities(const std::vector<std::vector<double>> & new_data) const -> std::vector<std::vector<double>> override;
 
 		virtual auto fit(const std::vector<std::vector<double> > & data, const std::vector<int32_t> & targets) -> void override;
 

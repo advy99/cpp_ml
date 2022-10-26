@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <map>
+#include <set>
 
 namespace cpp_ml::models::classifiers {
 
@@ -15,8 +16,20 @@ knn_classifier :: knn_classifier(size_t k, const std::function<double(const std:
 knn_classifier :: ~knn_classifier() {}
 
 auto knn_classifier :: fit(const std::vector<std::vector<double> > & data, const std::vector<int32_t> & targets) -> void {
+	this->classifier::fit(data, targets);
 	data_ = data;
 	targets_ = targets;
+}
+
+
+auto knn_classifier :: predict_probabilities(const std::vector<double> & instance) const -> std::vector<double> {
+
+	std::vector<double> probabilities (num_classes_, 0.0);
+
+	int32_t predicted_class = predict(instance);
+	probabilities[static_cast<std::size_t>(predicted_class)] = 1.0;
+
+	return probabilities;
 }
 
 auto knn_classifier :: predict(const std::vector<double> & instance) const -> int32_t {
@@ -42,6 +55,20 @@ auto knn_classifier :: predict(const std::vector<double> & instance) const -> in
 
 
 	return predicted_class->first;
+
+
+}
+
+auto knn_classifier :: predict_probabilities(const std::vector<std::vector<double>> & new_data) const -> std::vector<std::vector<double>> {
+	std::vector<std::vector<double>> predictions;
+
+	predictions.reserve(new_data.size());
+
+	for (const auto & data : new_data ) {
+		predictions.push_back(predict_probabilities(data));
+	}
+
+	return predictions;
 
 
 }

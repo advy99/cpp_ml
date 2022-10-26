@@ -24,6 +24,17 @@ auto logistic_regression :: predict(const std::vector<double> & instance) const 
 	return prediction;
 }
 
+auto logistic_regression :: predict_probabilities(const std::vector<double> & instance) const -> std::vector<double> {
+
+	std::vector<double> probabilities {2, 0.0};
+
+	double logistic_value = compute_logistic_function(instance);
+
+	probabilities[0] = 1.0 - logistic_value;
+	probabilities[1] = logistic_value;
+
+	return probabilities;
+}
 
 auto logistic_regression :: predict(const std::vector<std::vector<double> > & new_data) const -> std::vector<int32_t> {
 	std::vector<int32_t> predictions;
@@ -36,6 +47,8 @@ auto logistic_regression :: predict(const std::vector<std::vector<double> > & ne
 }
 
 auto logistic_regression :: fit(const std::vector<std::vector<double> > & data, const std::vector<int32_t> & targets) -> void {
+
+	this->classifier::fit(data, targets);
 
 	weights_.clear();
 	// a weight per column plus one for the bias
@@ -70,6 +83,19 @@ auto logistic_regression :: fit(const std::vector<std::vector<double> > & data, 
 
 }
 
+auto logistic_regression :: predict_probabilities(const std::vector<std::vector<double>> & new_data) const -> std::vector<std::vector<double>> {
+	std::vector<std::vector<double>> predictions;
+
+	predictions.reserve(new_data.size());
+
+	for (const auto & data : new_data ) {
+		predictions.push_back(predict_probabilities(data));
+	}
+
+	return predictions;
+
+
+}
 
 auto logistic_regression :: compute_logistic_function(const std::vector<double> & instance) const -> double {
 	// start with the bias (has no corresponding column in an instance)
