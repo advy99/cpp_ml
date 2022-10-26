@@ -12,6 +12,8 @@ class linear_regression : public regressor {
 
 	public:
 
+		virtual ~linear_regression();
+
 		virtual auto predict(const std::vector<double> & instance) const -> double override;
 		virtual auto predict(const std::vector<std::vector<double> > & new_data) const -> std::vector<double> override;
 

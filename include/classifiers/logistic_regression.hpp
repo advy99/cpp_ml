@@ -19,6 +19,7 @@ class logistic_regression : public classifier {
 	public:
 
 		logistic_regression (const double learning_rate = 0.1, const int32_t max_iter_ = 1000, const uint64_t seed = 0);
+		virtual ~logistic_regression();
 
 		virtual auto predict(const std::vector<double> & instance) const -> int32_t override;
 		virtual auto predict(const std::vector<std::vector<double> > & new_data) const -> std::vector<int32_t> override;

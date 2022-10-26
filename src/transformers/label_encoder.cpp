@@ -7,6 +7,8 @@ label_encoder :: label_encoder () : num_unique_values_ {0}
 
 }
 
+label_encoder :: ~label_encoder() {}
+
 
 auto label_encoder :: transform (const std::vector<std::string> & instances) const -> std::vector<int32_t> {
 	std::vector<int32_t> result;

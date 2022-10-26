@@ -10,6 +10,8 @@ polynomial_regression :: polynomial_regression (const std::size_t degree)
 	:degree_(degree)
 {}
 
+polynomial_regression :: ~polynomial_regression() {}
+
 auto polynomial_regression :: predict(const std::vector<double> & instance) const -> double {
 
 	double prediction = weights_[0];
