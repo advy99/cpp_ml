@@ -106,11 +106,11 @@ TEST_TARGET_OBJECT = $(OBJ)/tests.o
 LIBRARY = $(LIB)/libcpp_ml.a
 
 TRANSFORMERS_OBJECTS = $(OBJ)/label_encoder.o $(OBJ)/standard_scaler.o
-CLASSIFICATION_OBJECTS = $(OBJ)/knn_classifier.o
+CLASSIFICATION_OBJECTS = $(OBJ)/knn_classifier.o $(OBJ)/logistic_regression.o
 REGRESSION_OBJECTS = $(OBJ)/knn_regressor.o $(OBJ)/linear_regression.o $(OBJ)/polynomial_regression.o
 MODELS_OBJECTS = $(CLASSIFICATION_OBJECTS) $(REGRESSION_OBJECTS)
 METRICS_OBJECTS = $(OBJ)/classification_metrics.o $(OBJ)/regression_metrics.o
-MATH_OBJECTS = $(OBJ)/distances.o
+MATH_OBJECTS = $(OBJ)/distances.o $(OBJ)/utils.o
 DATASETS_OBJECTS =
 
 ###
@@ -170,6 +170,11 @@ $(OBJ)/standard_scaler.o: $(SRC)/transformers/standard_scaler.cpp $(INC)/transfo
 $(OBJ)/knn_classifier.o: $(SRC)/classifiers/knn_classifier.cpp $(INC)/classifiers/knn_classifier.hpp $(INC)/classifiers.hpp
 	$(CXX) -c $(CXXFLAGS) $< -o $@
 
+
+$(OBJ)/logistic_regression.o: $(SRC)/classifiers/logistic_regression.cpp $(INC)/classifiers/logistic_regression.hpp $(INC)/classifiers.hpp
+	$(CXX) -c $(CXXFLAGS) $< -o $@
+
+
 $(OBJ)/knn_regressor.o: $(SRC)/regressors/knn_regressor.cpp $(INC)/regressors/knn_regressor.hpp $(INC)/regressors.hpp
 	$(CXX) -c $(CXXFLAGS) $< -o $@
 
@@ -190,6 +195,8 @@ $(OBJ)/regression_metrics.o: $(SRC)/metrics/regression_metrics.cpp $(INC)/metric
 $(OBJ)/distances.o: $(SRC)/math/distances.cpp $(INC)/math/distances.hpp
 	$(CXX) -c $(CXXFLAGS) $< -o $@
 
+$(OBJ)/utils.o: $(SRC)/math/utils.cpp $(INC)/math/utils.hpp
+	$(CXX) -c $(CXXFLAGS) $< -o $@
 
 ###
 #

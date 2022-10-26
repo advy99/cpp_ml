@@ -19,6 +19,8 @@ auto are_equal(const T & lhs,
 }
 
 
+auto logistic_function (const double z) -> double;
+
 
 } // end math::utils namespace
 
