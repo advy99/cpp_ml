@@ -110,7 +110,7 @@ CLASSIFICATION_OBJECTS = $(OBJ)/knn_classifier.o
 REGRESSION_OBJECTS = $(OBJ)/knn_regressor.o $(OBJ)/linear_regression.o $(OBJ)/polynomial_regression.o
 MODELS_OBJECTS = $(CLASSIFICATION_OBJECTS) $(REGRESSION_OBJECTS)
 METRICS_OBJECTS = $(OBJ)/classification_metrics.o $(OBJ)/regression_metrics.o
-MATH_OBJECTS = $(OBJ)/distances.o
+MATH_OBJECTS = $(OBJ)/distances.o $(OBJ)/utils.o
 DATASETS_OBJECTS =
 
 ###
@@ -190,6 +190,8 @@ $(OBJ)/regression_metrics.o: $(SRC)/metrics/regression_metrics.cpp $(INC)/metric
 $(OBJ)/distances.o: $(SRC)/math/distances.cpp $(INC)/math/distances.hpp
 	$(CXX) -c $(CXXFLAGS) $< -o $@
 
+$(OBJ)/utils.o: $(SRC)/math/utils.cpp $(INC)/math/utils.hpp
+	$(CXX) -c $(CXXFLAGS) $< -o $@
 
 ###
 #
