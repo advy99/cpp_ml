@@ -1,14 +1,17 @@
 namespace cpp_ml::models::classifiers {
 
 template <class T>
+requires std::derived_from<T, classifier>
 one_versus_all_classifier<T> :: one_versus_all_classifier (const T & estimator)
 	:base_estimator_ (estimator)
 {}
 
 template <class T>
+requires std::derived_from<T, classifier>
 one_versus_all_classifier<T> :: ~one_versus_all_classifier() {}
 
 template <class T>
+requires std::derived_from<T, classifier>
 auto one_versus_all_classifier<T> :: predict(const std::vector<double> & instance) const -> int32_t {
 
 	auto probabilities = predict_probabilities(instance);
@@ -23,6 +26,7 @@ auto one_versus_all_classifier<T> :: predict(const std::vector<double> & instanc
 
 
 template <class T>
+requires std::derived_from<T, classifier>
 auto one_versus_all_classifier<T> :: predict_probabilities(const std::vector<double> & instance) const -> std::vector<double> {
 
 	std::vector<double> probabilities (num_classes_, 0.0);
@@ -39,6 +43,7 @@ auto one_versus_all_classifier<T> :: predict_probabilities(const std::vector<dou
 
 
 template <class T>
+requires std::derived_from<T, classifier>
 auto one_versus_all_classifier<T> :: predict(const std::vector<std::vector<double> > & new_data) const -> std::vector<int32_t> {
 	std::vector<int32_t> predictions;
 
@@ -51,6 +56,7 @@ auto one_versus_all_classifier<T> :: predict(const std::vector<std::vector<doubl
 }
 
 template <class T>
+requires std::derived_from<T, classifier>
 auto one_versus_all_classifier<T> :: fit(const std::vector<std::vector<double> > & data, const std::vector<int32_t> & targets) -> void {
 
 	this->classifier::fit(data, targets);
@@ -78,6 +84,7 @@ auto one_versus_all_classifier<T> :: fit(const std::vector<std::vector<double> >
 }
 
 template <class T>
+requires std::derived_from<T, classifier>
 auto one_versus_all_classifier<T> :: predict_probabilities(const std::vector<std::vector<double>> & new_data) const -> std::vector<std::vector<double>> {
 	std::vector<std::vector<double>> predictions;
 
