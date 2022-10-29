@@ -3,6 +3,10 @@
 
 namespace cpp_ml::models::regressors {
 
+linear_regression :: linear_regression ()
+	:degree_(1)
+{}
+
 linear_regression :: ~linear_regression() {}
 
 auto linear_regression :: predict(const std::vector<double> & instance) const -> double {
