@@ -2,6 +2,7 @@
 #define LINEAR_REGRESSION_HPP
 
 #include "regressors.hpp"
+#include "regressors/polynomial_regression.hpp"
 #include <functional>
 
 namespace cpp_ml::models::regressors {
@@ -10,6 +11,7 @@ class linear_regression : public polynomial_regression {
 
 	public:
 	linear_regression();
+	virtual ~linear_regression();
 };
 
 
