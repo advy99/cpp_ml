@@ -9,7 +9,7 @@
 namespace cpp_ml::models::regressors {
 
 class polynomial_regression : public regressor {
-	private:
+	protected:
 		std::size_t degree_;
 		std::vector<double> weights_ {};
 

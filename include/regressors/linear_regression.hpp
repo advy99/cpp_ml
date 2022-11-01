@@ -2,23 +2,16 @@
 #define LINEAR_REGRESSION_HPP
 
 #include "regressors.hpp"
+#include "regressors/polynomial_regression.hpp"
 #include <functional>
 
 namespace cpp_ml::models::regressors {
 
-class linear_regression : public regressor {
-	private:
-		std::vector<double> weights_ {};
+class linear_regression : public polynomial_regression {
 
 	public:
-
-		virtual ~linear_regression();
-
-		virtual auto predict(const std::vector<double> & instance) const -> double override;
-		virtual auto predict(const std::vector<std::vector<double> > & new_data) const -> std::vector<double> override;
-
-		virtual auto fit(const std::vector<std::vector<double> > & data, const std::vector<double> & targets) -> void override;
-
+	linear_regression();
+	virtual ~linear_regression();
 };
 
 
